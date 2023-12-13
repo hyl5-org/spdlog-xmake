@@ -6,3 +6,4 @@ target("spdlog-xmake")
     add_files(
     "src/**.cpp"
     )
+    add_defines("SPDLOG_COMPILED_LIB")
