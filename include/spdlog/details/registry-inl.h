@@ -257,7 +257,11 @@ SPDLOG_INLINE void registry::throw_if_exists_(const std::string &logger_name) {
 
 SPDLOG_INLINE void registry::register_logger_(std::shared_ptr<logger> new_logger) {
     auto logger_name = new_logger->name();
-    throw_if_exists_(logger_name);
+    //throw_if_exists_(logger_name);
+    if (auto logger = loggers_.find(logger_name); logger != loggers_.end()) {
+        logger->second->error("logger {} exist", logger->first);
+        return;
+    }
     loggers_[logger_name] = std::move(new_logger);
 }
 
